@@ -1,0 +1,156 @@
+
+.d_amex
+{
+    background-color: transparent;
+    height: 20rem;
+    width: 30rem;
+
+    perspective: 1000px;
+
+    .d_card {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 4s ease;
+        transform-style: preserve-3d;
+        border-radius: 1rem;
+
+        box-sizing: border-box;
+
+        .d_front,
+        .d_back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(15, 15, 15);
+
+            border-radius: 1rem;
+            -webkit-backface-visibility: hidden;
+            /* Safari */
+            backface-visibility: hidden;
+            overflow: hidden;
+            //z-index: 0;
+            //box-shadow: 1rem 1rem 30px 0px rgba(0, 0, 0, 0.75);
+            transition: box-shadow 2s ease;
+        }
+
+        .d_front {
+            background-image: url('../../../../assets/amexblacktim.png');
+            background-size: contain;
+
+            box-shadow: 1rem 1rem 30px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .d_back {
+            transform: rotateY(180deg);
+            box-shadow: 1rem 1rem 30px 0px rgba(0, 0, 0, 0.75);
+
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            padding: 1rem;
+            gap: 1rem;
+
+
+            .d_field {
+                padding: 1rem;
+                background-color: rgb(10, 10, 10);
+                border-radius: .5rem;
+                white-space: nowrap;
+
+                .d_label {
+                    color: gray;
+                }
+            }
+
+            .d_bank {
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+
+                .d_iban {
+                    width: fit-content;
+                }
+
+                .d_bic {
+                    width: 100%;
+                }
+            }
+
+            .d_spotify {
+                display: flex;
+                justify-content: center;
+
+                .svg_spotify {
+                    width: 20rem;
+                }
+            }
+        }
+
+        // Schatten-Overlay für realistische Drehillusion
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            pointer-events: none; // verhindert Interaktion
+            z-index: 1;
+            will-change: opacity;
+            opacity: 0;
+            transition: opacity 3s ease;
+            -webkit-backface-visibility: hidden;
+            /* Safari */
+            backface-visibility: hidden;
+
+            //opacity: 0;
+        }
+
+        &::before {
+            transform: rotateY(0deg);
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, .3) 0%,
+                    rgba(255, 255, 255, 0) 40%,
+
+                    rgba(0, 0, 0, 1) 60%);
+            /*rgba(0, 0, 0, 1) 100%)*/
+        }
+
+        &::after {
+            transform: rotateY(180deg);
+            background: linear-gradient(90deg,
+                    rgba(0, 0, 0, 1), 0%,
+                    rgba(255, 255, 255, 0) 30%,
+                    rgba(255, 255, 255, .3) 80%);
+        }
+
+
+
+
+        &:hover .d_front {
+            box-shadow: none;
+        }
+
+        &:hover .d_back {
+            box-shadow: 1rem 1rem 30px 0px rgba(0, 0, 0, 0.75);
+        }
+    }
+
+    &:hover .d_card {
+        transform: rotateY(180deg);
+    }
+
+    &:hover .d_card::before {
+        opacity: .9;
+    }
+
+    &:hover .d_card::after {
+        opacity: 0;
+    }
+
+    .d_card::after {
+        opacity: .9;
+    }
+
+}
