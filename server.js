@@ -2,13 +2,15 @@
 import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // 💬 Dein Discord Webhook:
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/DEINE_ID/DEIN_TOKEN";
+const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
 // 💌 Route für Angular-Requests
 app.post("/api/discord", async (req, res) => {
